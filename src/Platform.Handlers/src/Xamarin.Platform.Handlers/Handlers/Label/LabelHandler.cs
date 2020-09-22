@@ -1,34 +1,24 @@
-﻿using System;
-#if __IOS__
-using NativeView = UIKit.UILabel;
-#elif __MACOS__
-using NativeView = AppKit.NSTextField;
-#elif MONOANDROID
-using NativeView = Android.Widget.TextView;
-#elif NETCOREAPP
-using NativeView = System.Windows.Controls.TextBlock;
-#elif NETSTANDARD
-using NativeView = System.Object;
-#endif
-
-namespace Xamarin.Platform.Handlers
+﻿namespace Xamarin.Platform.Handlers
 {
-	public class LabelHandler : AbstractViewHandler<ILabel, NativeView>
+	public partial class LabelHandler
 	{
-		public static PropertyMapper<ILabel, LabelHandler> LabelMapper = new PropertyMapper<ILabel, LabelHandler>(ViewHandler.ViewMapper)
+		public static PropertyMapper<ILabel> LabelMapper = new PropertyMapper<ILabel>(ViewHandler.ViewMapper)
 		{
-			[nameof(ILabel.Color)] = MapColor
+			[nameof(ILabel.Text)] = MapPropertyText,
+			[nameof(ILabel.TextColor)] = MapPropertyTextColor,
+			[nameof(ILabel.LineHeight)] = MapPropertyLineHeight,
+			[nameof(ILabel.Font)] = MapPropertyFont,
+			[nameof(ILabel.FontSize)] = MapPropertyFontSize,
+			[nameof(ILabel.FontAttributes)] = MapPropertyFontAttributes,
+			[nameof(ILabel.TextTransform)] = MapPropertyTextTransform,
+			[nameof(ILabel.HorizontalTextAlignment)] = MapPropertyHorizontalTextAlignment,
+			[nameof(ILabel.VerticalTextAlignment)] = MapPropertyVerticalTextAlignment,
+			[nameof(ILabel.CharacterSpacing)] = MapPropertyCharacterSpacing,
+			[nameof(ILabel.TextDecorations)] = MapPropertyTextDecorations,
+			[nameof(ILabel.LineBreakMode)] = MapPropertyLineBreakMode,
+			[nameof(ILabel.MaxLines)] = MapPropertyMaxLines,
+			[nameof(IPadding.Padding)] = MapPropertyPadding
 		};
-
-		public static void MapColor(LabelHandler handler, ILabel Label)
-		{
-		}
-
-#if MONOANDROID
-		protected override NativeView CreateView() => new NativeView(this.Context);
-#else
-		protected override NativeView CreateView() => new NativeView();
-#endif
 
 		public LabelHandler() : base(LabelMapper)
 		{
