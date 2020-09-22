@@ -4,9 +4,12 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.Forms.Internals;
+using Xamarin.Forms.Platform;
+using Xamarin.Platform;
 
 namespace Xamarin.Forms
 {
+	[RenderWith(typeof(_ButtonRenderer))]
 	public partial class Button : View, IFontElement, ITextElement, IBorderElement, IButtonController, IElementConfiguration<Button>, IPaddingElement, IImageController, IViewController, IButtonElement, IImageElement
 	{
 		const int DefaultBorderRadius = 5;
