@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Foundation;
-using UIKit;
-using Xamarin.Forms;
+﻿using UIKit;
 
 namespace Xamarin.Platform
 {
