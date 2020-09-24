@@ -1,4 +1,6 @@
-﻿using AndroidX.AppCompat.Widget;
+﻿using Android.Content.Res;
+using AndroidX.AppCompat.Widget;
+using Xamarin.Forms;
 
 namespace Xamarin.Platform
 {
