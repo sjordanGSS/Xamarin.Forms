@@ -1,13 +1,14 @@
+using Android.App;
+using Android.Util;
 using System;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using Android.App;
 using Android.Content;
+using Android.Widget;
 using Android.Text;
 using Android.Text.Style;
-using Android.Util;
-using Android.Widget;
+using Xamarin.Platform;
 
 namespace Xamarin.Forms.Platform.Android.AppCompat
 {

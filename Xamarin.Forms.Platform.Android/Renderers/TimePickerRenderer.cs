@@ -2,12 +2,13 @@ using System;
 using System.ComponentModel;
 using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Text.Format;
 using Android.Util;
+using Android.Text.Format;
+using ATimePicker = Android.Widget.TimePicker;
+using Android.OS;
 using Android.Widget;
 using AColor = Android.Graphics.Color;
-using ATimePicker = Android.Widget.TimePicker;
+using Xamarin.Platform;
 
 namespace Xamarin.Forms.Platform.Android
 {
@@ -209,5 +210,5 @@ namespace Xamarin.Forms.Platform.Android
 			_textColorSwitcher = _textColorSwitcher ?? new TextColorSwitcher(EditText.TextColors, Element.UseLegacyColorManagement());
 			_textColorSwitcher.UpdateTextColor(EditText, Element.TextColor);
 		}
-	}
+    }
 }

@@ -1,5 +1,3 @@
-using System;
-using System.ComponentModel;
 using Android.Content;
 using Android.Content.Res;
 using Android.Graphics;
@@ -7,7 +5,9 @@ using Android.Text;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using Xamarin.Forms.PlatformConfiguration.TizenSpecific;
+using System;
+using System.ComponentModel;
+using Xamarin.Platform;
 
 namespace Xamarin.Forms.Platform.Android
 {
@@ -125,7 +125,7 @@ namespace Xamarin.Forms.Platform.Android
 				UpdateFlowDirection();
 			}
 			else
-			{
+			{	
 				UpdateText();
 				if (e.OldElement.LineBreakMode != e.NewElement.LineBreakMode)
 					UpdateLineBreakMode();
@@ -215,6 +215,7 @@ namespace Xamarin.Forms.Platform.Android
 			}
 		}
 
+		[PortHandler]
 		void UpdateTextDecorations()
 		{
 			if (!Element.IsSet(Label.TextDecorationsProperty))
@@ -233,6 +234,7 @@ namespace Xamarin.Forms.Platform.Android
 				_view.PaintFlags |= PaintFlags.UnderlineText;
 		}
 
+		[PortHandler]
 		void UpdateGravity()
 		{
 			Label label = Element;
@@ -242,11 +244,14 @@ namespace Xamarin.Forms.Platform.Android
 			_lastSizeRequest = null;
 		}
 
+		[PortHandler]
 		void UpdateLineBreakMode()
 		{
 			_view.SetLineBreakMode(Element);
 			_lastSizeRequest = null;
 		}
+
+		[PortHandler]
 		void UpdateCharacterSpacing()
 		{
 			if (Forms.IsLollipopOrNewer && Control is TextView textControl)
@@ -255,6 +260,7 @@ namespace Xamarin.Forms.Platform.Android
 			}
 		}
 
+		[PortHandler]
 		void UpdateLineHeight()
 		{
 			_lastSizeRequest = null;
@@ -264,6 +270,7 @@ namespace Xamarin.Forms.Platform.Android
 				_view.SetLineSpacing(0, (float)Element.LineHeight);
 		}
 
+		[PortHandler]
 		void UpdateMaxLines()
 		{
 			Control.SetMaxLines(Element);
@@ -314,6 +321,7 @@ namespace Xamarin.Forms.Platform.Android
 			_lastSizeRequest = null;
 		}
 
+		[PortHandler]
 		void UpdatePadding()
 		{
 			Control.SetPadding(
