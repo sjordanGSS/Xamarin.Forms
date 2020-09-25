@@ -13,6 +13,15 @@
     <Compile Update="Platform\TextTransformUtilites.cs">
       <SubType></SubType>
     </Compile>
+    <Compile Update="Primitives\EffectiveFlowDirection.cs">
+      <SubType></SubType>
+    </Compile>
+    <Compile Update="Platform\EffectiveFlowDirectionExtensions.cs">
+      <SubType></SubType>
+    </Compile>
+    <Compile Update="Primitives\FlowDirection.cs">
+      <SubType></SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="..\..\..\..\.nuspec\Xamarin.Forms.MultiTargeting.targets" />
 </Project>
