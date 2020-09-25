@@ -181,6 +181,7 @@ namespace Xamarin.Forms.Platform.Android
 			Control.UpdateFlowDirection(Element);
 		}
 
+		[PortHandler("Still pending to port assign _labelTextColorDefault in case of Color.Default.")]
 		void UpdateColor()
 		{
 			Color c = Element.TextColor;
@@ -276,6 +277,7 @@ namespace Xamarin.Forms.Platform.Android
 			Control.SetMaxLines(Element);
 		}
 
+		[PortHandler("Pending FormattedText.")]
 		void UpdateText()
 		{
 			if (Element.FormattedText != null)
