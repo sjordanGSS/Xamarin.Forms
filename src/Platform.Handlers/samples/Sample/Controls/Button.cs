@@ -34,6 +34,9 @@ namespace Sample
 
 		public double CharacterSpacing { get; set; }
 
+		string IText.UpdateTransformedText(string source, TextTransform textTransform)
+			=> TextTransformUtilites.GetTransformedText(source, textTransform);
+
 		public Action Pressed { get; set; }
 		public Action Released { get; set; }
 		public Action Clicked { get; set; }

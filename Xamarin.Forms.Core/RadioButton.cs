@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using Xamarin.Forms.Internals;
 using Xamarin.Forms.Shapes;
+using Xamarin.Platform;
 
 namespace Xamarin.Forms
 {
