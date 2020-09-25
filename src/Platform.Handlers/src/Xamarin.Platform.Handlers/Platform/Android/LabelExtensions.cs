@@ -7,17 +7,41 @@ namespace Xamarin.Platform
 {
 	public static class LabelExtensions
 	{
+		static Forms.Color LastUpdateColor = Forms.Color.Default;
 		static float LineSpacingExtraDefault = -1.0f;
 		static float LineSpacingMultiplierDefault = -1.0f;
 
 		public static void UpdateText(this TextView textView, ILabel label)
 		{
+			switch (label.TextType)
+			{
+				case TextType.Html:
+					if (NativeVersion.IsAtLeast(24))
+						textView.SetText(Html.FromHtml(label.Text ?? string.Empty, FromHtmlOptions.ModeCompact), TextView.BufferType.Spannable);
+					else
+#pragma warning disable CS0618 // Type or member is obsolete
+						textView.SetText(Html.FromHtml(label.Text ?? string.Empty), TextView.BufferType.Spannable);
+#pragma warning restore CS0618 // Type or member is obsolete
+					break;
+				default:
+					textView.Text = label.UpdateTransformedText(label.Text, label.TextTransform);
+					break;
+			}
 
+			UpdateTextColor(textView, label);
+			UpdateFont(textView, label);
 		}
 
 		public static void UpdateTextColor(this TextView textView, ILabel label)
 		{
+			Forms.Color textColor = label.TextColor;
 
+			if (textColor == LastUpdateColor)
+				return;
+
+			LastUpdateColor = textColor;
+
+			textView.SetTextColor(textColor.ToNative());
 		}
 
 		public static void UpdateFont(this TextView textView, ILabel label)
