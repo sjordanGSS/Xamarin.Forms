@@ -8,19 +8,22 @@ namespace Xamarin.Platform
 	{
 		public static void UpdateText(this UILabel nativeLabel, ILabel label)
 		{
-			switch (label.TextType)
-			{
-				case TextType.Html:
-					UpdateTextHtml(nativeLabel, label);
-					break;
-				default:
-					UpdateTextPlainText(nativeLabel, label);
-					break;
-			}
+			SetText(nativeLabel, label);
 		}
 
 		public static void UpdateTextColor(this UILabel nativeLabel, ILabel label)
 		{
+			var textColor = label.TextColor;
+
+			if (textColor.IsDefault && label.TextType == TextType.Html)
+			{
+				// If no explicit text color has been specified and we're displaying HTML, 
+				// let the HTML determine the colors
+				return;
+			}
+
+			// Default value of color documented to be black in iOS docs
+			nativeLabel.TextColor = textColor.ToNative(ColorExtensions.LabelColor);
 
 		}
 
@@ -42,7 +45,7 @@ namespace Xamarin.Platform
 
 		public static void UpdateLineHeight(this UILabel nativeLabel, ILabel label)
 		{
-
+			SetText(nativeLabel, label);
 		}
 
 		public static void UpdateHorizontalTextAlignment(this UILabel nativeLabel, ILabel label)
@@ -134,6 +137,19 @@ namespace Xamarin.Platform
 		public static void UpdatePadding(this UILabel nativeLabel, ILabel label)
 		{
 
+		}
+
+		internal static void SetText(this UILabel nativeLabel, ILabel label)
+		{
+			switch (label.TextType)
+			{
+				case TextType.Html:
+					UpdateTextHtml(nativeLabel, label);
+					break;
+				default:
+					UpdateTextPlainText(nativeLabel, label);
+					break;
+			}
 		}
 
 		internal static void UpdateTextHtml(this UILabel nativeLabel, ILabel label)
