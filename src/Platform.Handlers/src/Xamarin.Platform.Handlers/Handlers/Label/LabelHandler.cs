@@ -1,5 +1,6 @@
 ﻿#if __IOS__
 using RectangleF = CoreGraphics.CGRect;
+using CustomNativeView = Xamarin.Platform.NativeLabel;
 using NativeView = UIKit.UILabel;
 #elif __MACOS__
 using NativeView = AppKit.NSTextField;
@@ -106,7 +107,7 @@ namespace Xamarin.Platform.Handlers
 #if MONOANDROID
 		protected override NativeView CreateView() => new NativeView(this.Context);
 #elif __IOS__
-		protected override NativeView CreateView() => new NativeView(RectangleF.Empty);
+		protected override NativeView CreateView() => VirtualView.Padding.IsEmpty ? new NativeLabel(RectangleF.Empty) : new CustomNativeView(RectangleF.Empty);
 #else
 		protected override NativeView CreateView() => new NativeView();
 #endif

@@ -1,4 +1,5 @@
-﻿using Foundation;
+﻿using System;
+using Foundation;
 using UIKit;
 using Xamarin.Forms;
 
@@ -136,7 +137,17 @@ namespace Xamarin.Platform
 
 		public static void UpdatePadding(this UILabel nativeLabel, ILabel label)
 		{
+			if (!(nativeLabel is NativeLabel customNativeLabel))
+			{
+				Console.WriteLine("On iOS, a Label created with no padding will ignore padding changes");
+				return;
+			}
 
+			customNativeLabel.TextInsets = new UIEdgeInsets(
+				(float)label.Padding.Top,
+				(float)label.Padding.Left,
+				(float)label.Padding.Bottom,
+				(float)label.Padding.Right);
 		}
 
 		internal static void SetText(this UILabel nativeLabel, ILabel label)
