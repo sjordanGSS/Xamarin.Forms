@@ -18,15 +18,9 @@ namespace Xamarin.Platform.Handlers
 			[nameof(IActivityIndicator.Color)] = MapColor
 		};
 
-		public static void MapIsRunning(ActivityIndicatorHandler handler, IActivityIndicator activityIndicator)
-		{
-			handler.TypedNativeView.UpdateIsRunning(activityIndicator);
-		}
+		public static void MapIsRunning(ActivityIndicatorHandler handler, IActivityIndicator activityIndicator) => handler.TypedNativeView?.UpdateIsRunning(activityIndicator);
 
-		public static void MapColor(ActivityIndicatorHandler handler, IActivityIndicator activityIndicator)
-		{
-			handler.TypedNativeView.UpdateColor(activityIndicator);
-		}
+		public static void MapColor(ActivityIndicatorHandler handler, IActivityIndicator activityIndicator) => handler.TypedNativeView?.UpdateColor(activityIndicator);
 
 #if MONOANDROID
 		protected override NativeView CreateView() => new NativeView(this.Context) { Indeterminate = true };
