@@ -5,7 +5,7 @@ namespace Xamarin.Platform
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
     public class PortHandlerAttribute : Attribute
     {
-        public PortHandlerAttribute()
+		public PortHandlerAttribute()
         {
 
         }
@@ -15,6 +15,6 @@ namespace Xamarin.Platform
             Description = description;
         }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
     }
 }

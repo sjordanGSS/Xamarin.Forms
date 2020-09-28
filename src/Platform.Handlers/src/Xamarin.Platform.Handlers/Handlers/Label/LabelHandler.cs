@@ -34,80 +34,38 @@ namespace Xamarin.Platform.Handlers
 			[nameof(IPadding.Padding)] = MapPadding
 		};
 
-		public static void MapText(LabelHandler handler, ILabel label)
-		{
-			handler.TypedNativeView.UpdateText(label);
-		}
+		public static void MapText(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdateText(label);
 
-		public static void MapTextColor(LabelHandler handler, ILabel label)
-		{
-			handler.TypedNativeView.UpdateTextColor(label);
-		}
+		public static void MapTextColor(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdateTextColor(label);
 
-		public static void MapFont(LabelHandler handler, ILabel label)
-		{
-			handler.TypedNativeView.UpdateFont(label);
-		}
+		public static void MapFont(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdateFont(label);
 
-		public static void MapTextTransform(LabelHandler handler, ILabel label)
-		{
-			handler.TypedNativeView.UpdateText(label);
-		}
+		public static void MapTextTransform(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdateText(label);
 
-		public static void MapCharacterSpacing(LabelHandler handler, ILabel label)
-		{
-			handler.TypedNativeView.UpdateCharacterSpacing(label);
-		}
+		public static void MapCharacterSpacing(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdateCharacterSpacing(label);
 
-		public static void MapLineHeight(LabelHandler handler, ILabel label)
-		{
-			handler.TypedNativeView.UpdateLineHeight(label);
-		}
+		public static void MapLineHeight(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdateLineHeight(label);
 
-		public static void MapFontSize(LabelHandler handler, ILabel label)
-		{
-			handler.TypedNativeView.UpdateFont(label);
-		}
+		public static void MapFontSize(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdateFont(label);
 
-		public static void MapFontAttributes(LabelHandler handler, ILabel label)
-		{
-			handler.TypedNativeView.UpdateFont(label);
-		}
+		public static void MapFontAttributes(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdateFont(label);
 
-		public static void MapHorizontalTextAlignment(LabelHandler handler, ILabel label)
-		{
-			handler.TypedNativeView.UpdateHorizontalTextAlignment(label);
-		}
+		public static void MapHorizontalTextAlignment(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdateHorizontalTextAlignment(label);
 
-		public static void MapVerticalTextAlignment(LabelHandler handler, ILabel label)
-		{
-			handler.TypedNativeView.UpdateVerticalTextAlignment(label);
-		}
+		public static void MapVerticalTextAlignment(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdateVerticalTextAlignment(label);
 
-		public static void MapTextDecorations(LabelHandler handler, ILabel label)
-		{
-			handler.TypedNativeView.UpdateTextDecorations(label);
-		}
+		public static void MapTextDecorations(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdateTextDecorations(label);
 
-		public static void MapLineBreakMode(LabelHandler handler, ILabel label)
-		{
-			handler.TypedNativeView.UpdateLineBreakMode(label);
-		}
+		public static void MapLineBreakMode(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdateLineBreakMode(label);
 
-		public static void MapMaxLines(LabelHandler handler, ILabel label)
-		{
-			handler.TypedNativeView.UpdateMaxLines(label);
-		}
+		public static void MapMaxLines(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdateMaxLines(label);
 
-		public static void MapPadding(LabelHandler handler, ILabel label)
-		{
-			handler.TypedNativeView.UpdatePadding(label);
-		}
+		public static void MapPadding(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdatePadding(label);
 
 #if MONOANDROID
 		protected override NativeView CreateView() => new NativeView(this.Context);
 #elif __IOS__
-		protected override NativeView CreateView() => VirtualView.Padding.IsEmpty ? new NativeLabel(RectangleF.Empty) : new CustomNativeView(RectangleF.Empty);
+		protected override NativeView CreateView() => (VirtualView == null && VirtualView!.Padding.IsEmpty) ? new NativeView(RectangleF.Empty) : new CustomNativeView(RectangleF.Empty);
 #else
 		protected override NativeView CreateView() => new NativeView();
 #endif

@@ -38,7 +38,7 @@ namespace Xamarin.Platform
 			if (label.TextType != TextType.Text)
 				return;
 
-			var textAttr = nativeLabel.AttributedText.AddCharacterSpacing(label.Text, label.CharacterSpacing);
+			var textAttr = nativeLabel.AttributedText?.AddCharacterSpacing(label.Text, label.CharacterSpacing);
 
 			if (textAttr != null)
 				nativeLabel.AttributedText = textAttr;
@@ -169,7 +169,7 @@ namespace Xamarin.Platform
 
 			var attr = GetNSAttributedStringDocumentAttributes();
 
-			NSError nsError = null;
+			NSError? nsError = null;
 
 			nativeLabel.AttributedText = new NSAttributedString(text, attr, ref nsError);
 

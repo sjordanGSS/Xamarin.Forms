@@ -5,12 +5,13 @@ namespace Xamarin.Platform
 {
 	public static class CharacterSpacingExtensions
 	{
-		public static NSMutableAttributedString AddCharacterSpacing(this NSAttributedString attributedString, string text, double characterSpacing)
+		public static NSMutableAttributedString? AddCharacterSpacing(this NSAttributedString attributedString, string text, double characterSpacing)
 		{
 			if (attributedString == null && characterSpacing == 0)
 				return null;
 
-			NSMutableAttributedString mutableAttributedString = attributedString as NSMutableAttributedString;
+			NSMutableAttributedString? mutableAttributedString = attributedString as NSMutableAttributedString;
+
 			if (attributedString == null || attributedString.Length == 0)
 			{
 				mutableAttributedString = text == null ? new NSMutableAttributedString() : new NSMutableAttributedString(text);
@@ -30,8 +31,7 @@ namespace Xamarin.Platform
 			if (mutableAttributedString == null)
 				return false;
 
-			NSRange removalRange;
-			var attributes = mutableAttributedString.GetAttributes(0, out removalRange);
+			var attributes = mutableAttributedString.GetAttributes(0, out NSRange removalRange);
 
 			for (uint i = 0; i < attributes.Count; i++)
 				if (attributes.Keys[i] is NSString nSString && nSString == UIStringAttributeKey.KerningAdjustment)
@@ -40,7 +40,7 @@ namespace Xamarin.Platform
 			return false;
 		}
 
-		internal static void AddKerningAdjustment(NSMutableAttributedString mutableAttributedString, string text, double characterSpacing)
+		internal static void AddKerningAdjustment(NSMutableAttributedString mutableAttributedString, string? text, double characterSpacing)
 		{
 			if (!string.IsNullOrEmpty(text))
 			{
@@ -50,7 +50,7 @@ namespace Xamarin.Platform
 				mutableAttributedString.AddAttribute
 				(
 					UIStringAttributeKey.KerningAdjustment,
-					NSObject.FromObject(characterSpacing), new NSRange(0, text.Length - 1)
+					NSObject.FromObject(characterSpacing), new NSRange(0, text != null ? text.Length - 1 : 0)
 				);
 			}
 		}
