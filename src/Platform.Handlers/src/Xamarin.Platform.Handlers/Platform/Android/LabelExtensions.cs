@@ -1,5 +1,6 @@
 ﻿using Android.Graphics;
 using Android.Text;
+using Android.Util;
 using Android.Widget;
 using Xamarin.Forms;
 
@@ -8,8 +9,12 @@ namespace Xamarin.Platform
 	public static class LabelExtensions
 	{
 		static Forms.Color LastUpdateColor = Forms.Color.Default;
+
 		static float LineSpacingExtraDefault = -1.0f;
 		static float LineSpacingMultiplierDefault = -1.0f;
+
+		static Typeface? LastTypeface;
+		static float LastTextSize = -1f;
 
 		public static void UpdateText(this TextView textView, ILabel label)
 		{
@@ -46,7 +51,24 @@ namespace Xamarin.Platform
 
 		public static void UpdateFont(this TextView textView, ILabel label)
 		{
+			// We will need to update this when .Font goes away
+			Font font = label.Font;
 
+			Typeface? newTypeface = font.ToTypeface();
+
+			if (newTypeface != LastTypeface)
+			{
+				textView.Typeface = newTypeface;
+				LastTypeface = newTypeface;
+			}
+
+			float newTextSize = font.ToScaledPixel();
+
+			if (newTextSize != LastTextSize)
+			{
+				textView.SetTextSize(ComplexUnitType.Sp, newTextSize);
+				LastTextSize = newTextSize;
+			}
 		}
 
 		public static void UpdateCharacterSpacing(this TextView textView, ILabel label)
