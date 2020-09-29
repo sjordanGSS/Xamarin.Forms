@@ -4,13 +4,19 @@ using Xamarin.Forms;
 using AColor = Android.Graphics.Color;
 using AColorFilter = Android.Graphics.ColorFilter;
 using ADrawable = Android.Graphics.Drawables.Drawable;
+
+#if __ANDROID_29__
 using ADrawableCompat = AndroidX.Core.Graphics.Drawable.DrawableCompat;
+#else
+using ADrawableCompat = Android.Support.V4.Graphics.Drawable.DrawableCompat;
+#endif
 
 namespace Xamarin.Platform
 {
 	public static class DrawableExtensions
 	{
-		public static BlendMode GetFilterMode(FilterMode mode)
+#if __ANDROID_29__
+		public static BlendMode? GetFilterMode(FilterMode mode)
 		{
 			switch (mode)
 			{
@@ -20,15 +26,21 @@ namespace Xamarin.Platform
 					return BlendMode.Multiply;
 				case FilterMode.SrcAtop:
 					return BlendMode.SrcAtop;
-				case FilterMode.Clear:
-					return BlendMode.Clear;
 			}
 
 			throw new Exception("Invalid Mode");
 		}
 
+#else
 		[Obsolete]
-		static PorterDuff.Mode GetFilterModePre29(FilterMode mode)
+		static PorterDuff.Mode? GetFilterMode(FilterMode mode)
+		{
+			return GetFilterModePre29(mode);
+		}
+#endif
+
+		[Obsolete]
+		static PorterDuff.Mode? GetFilterModePre29(FilterMode mode)
 		{
 			switch (mode)
 			{
@@ -38,14 +50,12 @@ namespace Xamarin.Platform
 					return PorterDuff.Mode.Multiply;
 				case FilterMode.SrcAtop:
 					return PorterDuff.Mode.SrcAtop;
-				case FilterMode.Clear:
-					return PorterDuff.Mode.Clear;
 			}
 
 			throw new Exception("Invalid Mode");
 		}
 
-		public static AColorFilter GetColorFilter(this ADrawable drawable)
+		public static AColorFilter? GetColorFilter(this ADrawable drawable)
 		{
 			if (drawable == null)
 				return null;
@@ -84,17 +94,33 @@ namespace Xamarin.Platform
 			drawable.SetColorFilter(color.ToNative(), mode);
 		}
 
-		public static void SetColorFilter(this ADrawable drawable, AColor color, FilterMode mode)
-		{
-			if (NativeVersion.IsAtLeast(29))
-				drawable.SetColorFilter(new BlendModeColorFilter(color, GetFilterMode(mode)));
-			else
 #pragma warning disable CS0612 // Type or member is obsolete
 #pragma warning disable CS0618 // Type or member is obsolete
-				drawable.SetColorFilter(color, GetFilterModePre29(mode));
+		public static void SetColorFilter(this ADrawable drawable, AColor color, FilterMode mode)
+		{
+#if __ANDROID_29__
+			if (NativeVersion.Supports(NativeApis.BlendModeColorFilter))
+			{
+				BlendMode? filterMode29 = GetFilterMode(mode);
+
+				if (filterMode29 != null)
+					drawable.SetColorFilter(new BlendModeColorFilter(color, filterMode29));
+			}
+			else
+			{
+				PorterDuff.Mode? filterModePre29 = GetFilterModePre29(mode);
+
+				if (filterModePre29 != null)
+					drawable.SetColorFilter(color, filterModePre29);
+			}
+#else
+			PorterDuff.Mode? filterMode = GetFilterMode(mode);
+
+			if (filterMode != null)
+				drawable.SetColorFilter(color, filterMode);
+#endif
+		}
 #pragma warning restore CS0618 // Type or member is obsolete
 #pragma warning restore CS0612 // Type or member is obsolete
-		}
-
 	}
 }
