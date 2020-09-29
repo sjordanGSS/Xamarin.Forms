@@ -2,6 +2,8 @@
 using Foundation;
 using UIKit;
 using Xamarin.Forms;
+using RectangleF = CoreGraphics.CGRect;
+using SizeF = CoreGraphics.CGSize;
 
 namespace Xamarin.Platform
 {
@@ -30,7 +32,7 @@ namespace Xamarin.Platform
 
 		public static void UpdateFont(this UILabel nativeLabel, ILabel label)
 		{
-
+			nativeLabel.Font = label.ToUIFont();
 		}
 
 		public static void UpdateCharacterSpacing(this UILabel nativeLabel, ILabel label)
@@ -56,7 +58,28 @@ namespace Xamarin.Platform
 
 		public static void UpdateVerticalTextAlignment(this UILabel nativeLabel, ILabel label)
 		{
+			SizeF fitSize;
+			nfloat labelHeight;
 
+			switch (label.VerticalTextAlignment)
+			{
+				case TextAlignment.Start:
+					fitSize = nativeLabel.SizeThatFits(label.Frame.Size.ToSizeF());
+					labelHeight = (nfloat)Math.Min(nativeLabel.Bounds.Height, fitSize.Height);
+					nativeLabel.Frame = new RectangleF(0, 0, (nfloat)label.Frame.Width, labelHeight);
+					break;
+				case TextAlignment.Center:
+					nativeLabel.Frame = new RectangleF(0, 0, (nfloat)label.Frame.Width, (nfloat)label.Frame.Height);
+					break;
+				case TextAlignment.End:
+					fitSize = nativeLabel.SizeThatFits(label.Frame.Size.ToSizeF());
+					labelHeight = (nfloat)Math.Min(nativeLabel.Bounds.Height, fitSize.Height);
+					nfloat yOffset = 0;
+					yOffset = (nfloat)(label.Frame.Height - labelHeight);
+					nativeLabel.Frame = new RectangleF(0, yOffset, (nfloat)label.Frame.Width, labelHeight);
+
+					break;
+			}
 		}
 
 		public static void UpdateTextDecorations(this UILabel nativeLabel, ILabel label)

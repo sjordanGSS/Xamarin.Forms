@@ -90,6 +90,7 @@ namespace Xamarin.Forms.Platform.MacOS
 		}
 
 #if __MOBILE__
+		[PortHandler]
 		public override void LayoutSubviews()
 		{
 			base.LayoutSubviews();
@@ -524,6 +525,7 @@ namespace Xamarin.Forms.Platform.MacOS
 			return true;
 		}
 
+		[PortHandler("Pending to port FormattedText.")]
 		void UpdateFont()
 		{
 			if(Element == null)
@@ -569,9 +571,9 @@ namespace Xamarin.Forms.Platform.MacOS
 				return;		
 			}
 
-				// default value of color documented to be black in iOS docs
+			// default value of color documented to be black in iOS docs
 #if __MOBILE__
-				Control.TextColor = textColor.ToUIColor(ColorExtensions.LabelColor);
+			Control.TextColor = textColor.ToUIColor(ColorExtensions.LabelColor);
 #else
 			var alignment = Element.HorizontalTextAlignment.ToNativeTextAlignment(((IVisualElementController)Element).EffectiveFlowDirection);
 			var textWithColor = new NSAttributedString(Element.Text ?? "", font: Element.ToNSFont(), foregroundColor: textColor.ToNSColor(ColorExtensions.TextColor), paragraphStyle: new NSMutableParagraphStyle() { Alignment = alignment });

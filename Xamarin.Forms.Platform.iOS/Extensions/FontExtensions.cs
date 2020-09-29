@@ -3,13 +3,14 @@ using System.Linq;
 using Xamarin.Forms.Internals;
 using UIKit;
 using System;
-using Xamarin.Forms.Core;
+using Xamarin.Platform;
 
 namespace Xamarin.Forms.Platform.iOS
 {
+	[PortHandler("Ported to Xamarin.Platform but not 100% due to missing FontRegistrar.")]
 	public static partial class FontExtensions
 	{
-		static readonly string _defaultFontName = UIFont.SystemFontOfSize(12).Name;
+		static readonly string DefaultFontName = UIFont.SystemFontOfSize(12).Name;
 
 		public static UIFont ToUIFont(this Font self) => ToNativeFont(self);
 
@@ -20,7 +21,7 @@ namespace Xamarin.Forms.Platform.iOS
 			var bold = (attributes & FontAttributes.Bold) != 0;
 			var italic = (attributes & FontAttributes.Italic) != 0;
 
-			if (family != null && family != _defaultFontName)
+			if (family != null && family != DefaultFontName)
 			{
 				try
 				{
