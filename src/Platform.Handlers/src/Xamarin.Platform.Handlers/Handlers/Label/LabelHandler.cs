@@ -1,20 +1,6 @@
-﻿#if __IOS__
-using RectangleF = CoreGraphics.CGRect;
-using CustomNativeView = Xamarin.Platform.NativeLabel;
-using NativeView = UIKit.UILabel;
-#elif __MACOS__
-using NativeView = AppKit.NSTextField;
-#elif MONOANDROID
-using NativeView = Android.Widget.TextView;
-#elif NETCOREAPP
-using NativeView = System.Windows.Controls.TextBlock;
-#elif NETSTANDARD
-using NativeView = System.Object;
-# endif
-
-namespace Xamarin.Platform.Handlers
+﻿namespace Xamarin.Platform.Handlers
 {
-	public partial class LabelHandler : AbstractViewHandler<ILabel, NativeView>
+	public partial class LabelHandler 
 	{
 		public static PropertyMapper<ILabel, LabelHandler> LabelMapper = new PropertyMapper<ILabel, LabelHandler>(ViewHandler.ViewMapper)
 		{
@@ -61,14 +47,6 @@ namespace Xamarin.Platform.Handlers
 		public static void MapMaxLines(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdateMaxLines(label);
 
 		public static void MapPadding(LabelHandler handler, ILabel label) => handler.TypedNativeView?.UpdatePadding(label);
-
-#if MONOANDROID
-		protected override NativeView CreateView() => new NativeView(this.Context);
-#elif __IOS__
-		protected override NativeView CreateView() => (VirtualView == null && VirtualView!.Padding.IsEmpty) ? new NativeView(RectangleF.Empty) : new CustomNativeView(RectangleF.Empty);
-#else
-		protected override NativeView CreateView() => new NativeView();
-#endif
 
 		public LabelHandler() : base(LabelMapper)
 		{
