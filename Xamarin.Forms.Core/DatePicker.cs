@@ -1,11 +1,9 @@
 using System;
 using Xamarin.Forms.Internals;
-using Xamarin.Forms.Platform;
 using Xamarin.Platform;
 
 namespace Xamarin.Forms
 {
-	[RenderWith(typeof(_DatePickerRenderer))]
 	public class DatePicker : View, IFontElement, ITextElement, IElementConfiguration<DatePicker>
 	{
 		public static readonly BindableProperty FormatProperty = BindableProperty.Create(nameof(Format), typeof(string), typeof(DatePicker), "d");
