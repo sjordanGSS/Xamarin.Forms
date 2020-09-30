@@ -22,7 +22,7 @@ namespace Xamarin.Platform
 
 		public static void UpdateTextAlignment(this EditText view, TextAlignment horizontal, TextAlignment vertical)
 		{
-			if ((int)Build.VERSION.SdkInt < 17 || !view.Context.HasRtlSupport())
+			if ((int)Build.VERSION.SdkInt < 17 || (view.Context != null && !view.Context.HasRtlSupport()))
 			{
 				view.Gravity = vertical.ToVerticalGravityFlags() | horizontal.ToHorizontalGravityFlags();
 			}

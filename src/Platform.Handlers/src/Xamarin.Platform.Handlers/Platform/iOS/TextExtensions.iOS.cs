@@ -5,7 +5,7 @@ namespace Xamarin.Platform
 {
 	public static class TextExtensions
 	{
-		public static NSMutableAttributedString AddCharacterSpacing(this NSAttributedString attributedString, string text, double characterSpacing)
+		public static NSMutableAttributedString? AddCharacterSpacing(this NSAttributedString attributedString, string text, double characterSpacing)
 		{
 			if (attributedString == null && characterSpacing == 0)
 				return null;
@@ -36,7 +36,7 @@ namespace Xamarin.Platform
 			return false;
 		}
 
-		internal static void AddKerningAdjustment(NSMutableAttributedString mutableAttributedString, string text, double characterSpacing)
+		internal static void AddKerningAdjustment(NSMutableAttributedString mutableAttributedString, string? text, double characterSpacing)
 		{
 			if (!string.IsNullOrEmpty(text))
 			{
@@ -46,7 +46,7 @@ namespace Xamarin.Platform
 				mutableAttributedString.AddAttribute
 				(
 					UIStringAttributeKey.KerningAdjustment,
-					NSObject.FromObject(characterSpacing), new NSRange(0, text.Length - 1)
+					NSObject.FromObject(characterSpacing), new NSRange(0, text != null ? text.Length - 1 : 0)
 				);
 			}
 		}

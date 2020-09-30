@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Android.Content;
-using Android.Content.Res;
-using Android.Graphics;
 using Android.OS;
 using Android.Text;
 using Android.Text.Method;
 using Android.Util;
 using Android.Views;
+using Android.Widget;
 using Xamarin.Platform;
-using AView = Android.Views.View;
 
 namespace Xamarin.Forms.Platform.Android
 {
