@@ -1,4 +1,6 @@
-﻿namespace Xamarin.Platform.Handlers
+﻿using System;
+
+namespace Xamarin.Platform.Handlers
 {
 	public partial class LabelHandler : AbstractViewHandler<ILabel, object>
 	{
